@@ -11,6 +11,7 @@
         <module name="auth-service" />
         <module name="rental-service" />
         <module name="car-service" />
+        <module name="discovery-service" />
       </profile>
     </annotationProcessing>
   </component>

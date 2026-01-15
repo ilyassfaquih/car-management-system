@@ -2,19 +2,38 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: api-gateway
   cloud:
     gateway:
-
+      discovery:
+        locator:
+          enabled: true # (Optional) Bach y-creer routes auto
       routes:
         - id: auth-service
-          uri: http://localhost:8081
+          uri: lb://AUTH-SERVICE  # <-- Haka wellat
           predicates:
             - Path=/api/auth/**
         - id: car-service
-          uri: http://localhost:8082
+          uri: lb://CAR-SERVICE
           predicates:
             - Path=/api/cars/**
         - id: rental-service
-          uri: http://localhost:8083
+          uri: lb://RENTAL-SERVICE
           predicates:
             - Path=/api/rentals/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders: "*"
+            
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
