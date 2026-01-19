@@ -16,14 +16,14 @@ public class ApiGatewayApplication {
         SpringApplication.run(ApiGatewayApplication.class, args);
     }
 
-    // --- ZID HAD L-PARTIE ---
     @Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200", "*")); // Allow Angular & HTML
+        corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // Only Angular frontend
+        corsConfig.setAllowCredentials(true); // Allow credentials
         corsConfig.setMaxAge(3600L);
-        corsConfig.addAllowedMethod("*"); // Allow POST, GET, PUT...
-        corsConfig.addAllowedHeader("*");
+        corsConfig.addAllowedMethod("*"); // Allow all HTTP methods
+        corsConfig.addAllowedHeader("*"); // Allow all headers
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
