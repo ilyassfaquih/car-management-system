@@ -1,0 +1,102 @@
+.page-title {
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 36px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.car-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.car-image {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  margin: -20px -20px 20px -20px;
+}
+
+.car-icon {
+  font-size: 60px;
+}
+
+.car-details h3 {
+  color: #2d3748;
+  margin-bottom: 5px;
+  font-size: 22px;
+}
+
+.car-year {
+  color: #718096;
+  margin-bottom: 15px;
+}
+
+.car-info {
+  margin: 20px 0;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.info-item .label {
+  color: #718096;
+  font-weight: 500;
+}
+
+.info-item .value {
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.info-item .price {
+  color: #48bb78;
+  font-size: 18px;
+}
+
+.car-status {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.status-badge {
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-badge.available {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.status-badge.unavailable {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.btn-block {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.no-cars {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  padding: 40px;
+}

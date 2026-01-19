@@ -1,0 +1,66 @@
+<div class="container">
+  <h1 class="page-title">My Rentals</h1>
+
+  <div class="alert alert-success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    Loading your rentals...
+  </div>
+
+  <div class="rentals-list" *ngIf="!isLoading">
+    <div class="rental-card card" *ngFor="let rental of rentals">
+      <div class="rental-header">
+        <h3>🚗 {{ rental.carBrand }} {{ rental.carModel }}</h3>
+        <span 
+          class="status-badge"
+          [class.active]="rental.status === 'ACTIVE'"
+          [class.completed]="rental.status === 'COMPLETED'"
+        >
+          {{ rental.status }}
+        </span>
+      </div>
+
+      <div class="rental-details">
+        <div class="detail-row">
+          <span class="label">Rental ID:</span>
+          <span class="value">{{ rental.id }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Start Date:</span>
+          <span class="value">{{ rental.startDate | date:'medium' }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">End Date:</span>
+          <span class="value">{{ rental.endDate | date:'medium' }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Duration:</span>
+          <span class="value">{{ calculateDays(rental.startDate, rental.endDate) }} days</span>
+        </div>
+        <div class="detail-row total">
+          <span class="label">Total Cost:</span>
+          <span class="value">${{ rental.totalCost }}</span>
+        </div>
+      </div>
+
+      <button 
+        class="btn btn-primary btn-block"
+        (click)="returnCar(rental)"
+        *ngIf="rental.status === 'ACTIVE'"
+      >
+        Return Car
+      </button>
+    </div>
+  </div>
+
+  <div class="no-rentals" *ngIf="!isLoading && rentals.length === 0">
+    <p>You don't have any rentals yet.</p>
+    <a routerLink="/cars" class="btn btn-primary">Browse Cars</a>
+  </div>
+</div>

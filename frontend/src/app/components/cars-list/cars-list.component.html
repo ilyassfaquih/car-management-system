@@ -1,0 +1,61 @@
+<div class="container">
+  <h1 class="page-title">Available Cars</h1>
+
+  <div class="alert alert-success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    Loading cars...
+  </div>
+
+  <div class="grid grid-3" *ngIf="!isLoading">
+    <div class="car-card card" *ngFor="let car of cars">
+      <div class="car-image">
+        <span class="car-icon">🚗</span>
+      </div>
+      
+      <div class="car-details">
+        <h3>{{ car.brand }} {{ car.model }}</h3>
+        <p class="car-year">{{ car.year }}</p>
+        
+        <div class="car-info">
+          <div class="info-item">
+            <span class="label">Registration:</span>
+            <span class="value">{{ car.registrationNumber }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Price:</span>
+            <span class="value price">${{ car.pricePerDay }}/day</span>
+          </div>
+        </div>
+
+        <div class="car-status">
+          <span 
+            class="status-badge" 
+            [class.available]="car.available"
+            [class.unavailable]="!car.available"
+          >
+            {{ car.available ? 'Available' : 'Rented' }}
+          </span>
+        </div>
+
+        <button 
+          class="btn btn-success btn-block"
+          (click)="rentCar(car)"
+          [disabled]="!car.available"
+        >
+          {{ car.available ? 'Rent Now' : 'Not Available' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-cars" *ngIf="!isLoading && cars.length === 0">
+    <p>No cars available at the moment.</p>
+  </div>
+</div>
