@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="form-card card">
+        <h2 class="form-title">{{ isEditMode ? 'Edit Car' : 'Add New Car' }}</h2>
+
+        <div class="alert alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+
+        <form [formGroup]="carForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Brand</label>
+                    <input type="text" formControlName="brand" class="form-control"
+                        [class.is-invalid]="carForm.get('brand')?.invalid && carForm.get('brand')?.touched">
+                    <div class="error-text"
+                        *ngIf="carForm.get('brand')?.errors?.['required'] && carForm.get('brand')?.touched">
+                        Brand is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Model</label>
+                    <input type="text" formControlName="model" class="form-control"
+                        [class.is-invalid]="carForm.get('model')?.invalid && carForm.get('model')?.touched">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Year</label>
+                    <input type="number" formControlName="year" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Registration Number</label>
+                    <input type="text" formControlName="registrationNumber" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Price Per Day ($)</label>
+                    <input type="number" formControlName="pricePerDay" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="text" formControlName="imageUrl" class="form-control"
+                        placeholder="https://example.com/car.jpg">
+                </div>
+            </div>
+
+            <div class="form-group checkbox-group">
+                <label>
+                    <input type="checkbox" formControlName="available">
+                    Is Available for Rent?
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <a routerLink="/cars" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary" [disabled]="carForm.invalid || isLoading">
+                    {{ isLoading ? 'Saving...' : (isEditMode ? 'Update Car' : 'Create Car') }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
