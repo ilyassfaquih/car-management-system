@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; // Import Router
 import { CarService } from '../../services/car.service';
 import { RentalService } from '../../services/rental.service';
+import { AuthService } from '../../services/auth.service'; // <-- HADI LI KANT NAQSA
 import { Car } from '../../models/car.model';
 
 @Component({
@@ -12,17 +14,23 @@ import { Car } from '../../models/car.model';
   styleUrls: ['./cars-list.component.css']
 })
 export class CarsListComponent implements OnInit {
+  // Déclaration d les variables (Darouriyin)
   cars: Car[] = [];
   isLoading = true;
   errorMessage = '';
   successMessage = '';
+  isAdmin = false;
 
   constructor(
     private carService: CarService,
-    private rentalService: RentalService
-  ) {}
+    private rentalService: RentalService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    // Vérifier wach admin bach t-affichi les boutons
+    this.isAdmin = this.authService.isAdmin();
     this.loadCars();
   }
 
@@ -33,7 +41,7 @@ export class CarsListComponent implements OnInit {
         this.cars = cars;
         this.isLoading = false;
       },
-      error: (error) => {
+      error: (error: any) => {
         this.errorMessage = 'Failed to load cars';
         this.isLoading = false;
         console.error('Error loading cars:', error);
@@ -53,14 +61,41 @@ export class CarsListComponent implements OnInit {
         next: (response) => {
           this.successMessage = `Successfully rented ${car.brand} ${car.model}!`;
           setTimeout(() => this.successMessage = '', 3000);
-          this.loadCars(); // Reload to update availability
+          this.loadCars();
         },
-        error: (error) => {
+        error: (error: any) => {
           this.errorMessage = 'Failed to rent car. Please try again.';
           setTimeout(() => this.errorMessage = '', 3000);
           console.error('Error renting car:', error);
         }
       });
     }
+  }
+
+  deleteCar(car: Car): void {
+    if (confirm('Are you sure you want to delete this car?')) {
+      // T-akked anaka zedti deleteCar f CarService.ts
+      this.carService.deleteCar(car.id).subscribe({
+        next: () => {
+          this.successMessage = 'Car deleted successfully';
+          this.loadCars(); // Recharger la liste
+        },
+        error: (err: any) => {
+          this.errorMessage = 'Could not delete car';
+          console.error(err);
+        }
+      });
+    }
+  }
+
+  // Hado bach l-HTML ma y-dirch erreur, ta t-sawb les components dialhom mn be3d
+  navigateToAdd(): void {
+    console.log("Navigate to add car page");
+    // this.router.navigate(['/add-car']);
+  }
+
+  navigateToEdit(car: Car): void {
+    console.log("Navigate to edit car page", car);
+    // this.router.navigate(['/edit-car', car.id]);
   }
 }

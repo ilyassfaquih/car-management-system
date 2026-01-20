@@ -15,9 +15,9 @@ interface LoginResponse {
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/auth`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  login(credentials: { username: string; password: string }): Observable<LoginResponse> {
+  login(credentials: { email: string; password: string }): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
@@ -43,5 +43,18 @@ export class AuthService {
 
   getUserId(): string | null {
     return localStorage.getItem('userId');
+  }
+  isAdmin(): boolean {
+    const token = this.getToken();
+    if (!token) return false;
+
+    try {
+      // Decode JWT payload (bla librairie)
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const roles = payload.roles || [];
+      return roles.includes('ADMIN');
+    } catch (e) {
+      return false;
+    }
   }
 }

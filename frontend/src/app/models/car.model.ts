@@ -6,4 +6,5 @@ export interface Car {
   registrationNumber: string;
   pricePerDay: number;
   available: boolean;
+  imageUrl?: string;
 }
