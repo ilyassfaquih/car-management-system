@@ -1,9 +1,8 @@
 <div class="container">
+  <h1 class="page-title">Available Cars</h1>
 
-  <div class="header-actions"
-    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-    <h1 class="page-title" style="margin-bottom: 0;">Available Cars</h1>
-    <button *ngIf="isAdmin" class="btn btn-primary" (click)="navigateToAdd()">
+  <div *ngIf="isAdmin" style="text-align: center; margin-bottom: 30px;">
+    <button class="btn btn-primary" (click)="navigateToAdd()">
       + Add New Car
     </button>
   </div>
@@ -25,7 +24,7 @@
 
       <div class="car-image">
         <img *ngIf="car.imageUrl" [src]="car.imageUrl" [alt]="car.brand"
-          style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;">
+          style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 20px;">
         <span *ngIf="!car.imageUrl" class="car-icon">🚗</span>
       </div>
 
@@ -50,14 +49,13 @@
           </span>
         </div>
 
-        <div class="actions">
+        <div class="actions-area" style="margin-top: 15px;">
 
           <button *ngIf="!isAdmin" class="btn btn-success btn-block" (click)="rentCar(car)" [disabled]="!car.available">
             {{ car.available ? 'Rent Now' : 'Not Available' }}
           </button>
 
-          <div *ngIf="isAdmin" class="admin-actions"
-            style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+          <div *ngIf="isAdmin" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <button class="btn btn-primary" (click)="navigateToEdit(car)">Edit</button>
             <button class="btn btn-danger" (click)="deleteCar(car)">Delete</button>
           </div>

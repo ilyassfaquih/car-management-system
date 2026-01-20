@@ -26,6 +26,8 @@ public class Car {
     private String owner;
 
     private String imageUrl;
+    private String registrationNumber; // Matricule
+    private Double pricePerDay;
 
     @Builder.Default
     private boolean available = true;

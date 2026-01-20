@@ -90,12 +90,10 @@ export class CarsListComponent implements OnInit {
 
   // Hado bach l-HTML ma y-dirch erreur, ta t-sawb les components dialhom mn be3d
   navigateToAdd(): void {
-    console.log("Navigate to add car page");
-    // this.router.navigate(['/add-car']);
+    this.router.navigate(['/add-car']); // Hiyedna slashes
   }
 
   navigateToEdit(car: Car): void {
-    console.log("Navigate to edit car page", car);
-    // this.router.navigate(['/edit-car', car.id]);
+    this.router.navigate(['/edit-car', car.id]); // Hiyedna slashes
   }
 }
