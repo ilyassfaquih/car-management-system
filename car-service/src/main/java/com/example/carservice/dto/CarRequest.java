@@ -13,4 +13,5 @@ public class CarRequest {
     @NotNull
     private Integer year;
     private String owner;
+    private String imageUrl;
 }

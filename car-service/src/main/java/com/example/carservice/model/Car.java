@@ -25,6 +25,8 @@ public class Car {
 
     private String owner;
 
+    private String imageUrl;
+
     @Builder.Default
     private boolean available = true;
 

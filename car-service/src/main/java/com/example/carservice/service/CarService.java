@@ -27,6 +27,7 @@ public class CarService {
                 .model(request.getModel())
                 .year(request.getYear())
                 .owner(request.getOwner())
+                .imageUrl(request.getImageUrl())
                 .available(true)
                 .build();
         return carRepository.save(car);
@@ -38,6 +39,7 @@ public class CarService {
         car.setModel(request.getModel());
         car.setYear(request.getYear());
         car.setOwner(request.getOwner());
+        car.setImageUrl(request.getImageUrl());
         return carRepository.save(car);
     }
 
